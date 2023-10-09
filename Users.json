@@ -1,0 +1,89 @@
+[
+	{
+		"id": 1696712945585,
+		"firstName": "carlos ",
+		"lastName": "barradas",
+		"age": "22",
+		"cours": "javascript"
+	},
+	{
+		"id": 1696827414831,
+		"title": "carlos ",
+		"description": "producto de prueba",
+		"price": 93.75,
+		"thumbnail": "22",
+		"code": "javascript",
+		"stock": "250",
+		"participants": "2"
+	},
+	{
+		"id": 3,
+		"title": "carlos ",
+		"description": "producto de prueba",
+		"price": 93.75,
+		"thumbnail": "22",
+		"code": "javascript",
+		"stock": "250",
+		"participants": "2"
+	},
+	{
+		"id": 4,
+		"title": "carlos ",
+		"description": "producto de prueba",
+		"price": 93.75,
+		"thumbnail": "22",
+		"code": "javascript",
+		"stock": "250",
+		"participants": "2"
+	},
+	{
+		"id": 5,
+		"title": "carlos ",
+		"description": "producto de prueba",
+		"price": 93.75,
+		"thumbnail": "22",
+		"code": "javascript",
+		"stock": "250",
+		"participants": "2"
+	},
+	{
+		"id": 6,
+		"title": "carlos ",
+		"description": "producto de prueba",
+		"price": 93.75,
+		"thumbnail": "22",
+		"code": "javascript",
+		"stock": "250",
+		"participants": "2"
+	},
+	{
+		"id": 7,
+		"title": "carlos ",
+		"description": "producto de prueba",
+		"price": 93.75,
+		"thumbnail": "22",
+		"code": "javascript",
+		"stock": "250",
+		"participants": "2"
+	},
+	{
+		"id": 8,
+		"title": "carlos ",
+		"description": "producto de prueba",
+		"price": 93.75,
+		"thumbnail": "22",
+		"code": "javascript",
+		"stock": "250",
+		"participants": "2"
+	},
+	{
+		"id": 9,
+		"title": "carlos ",
+		"description": "producto de prueba",
+		"price": 93.75,
+		"thumbnail": "22",
+		"code": "javascript",
+		"stock": "250",
+		"participants": "2"
+	}
+]

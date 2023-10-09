@@ -1,92 +1,113 @@
+const fs = require('fs');
 
 class ProductManager {
   #priceBase = 0.15;
 
-  constructor() {
-    this.products = [];
+  constructor(path) {
+    this.path = path;
   }
 
-  getProducts() {
-    return this.products;
-  }
 
-  addProduct(title, description, price, thumbnail, code, stock) {
-    if (!title || !description || !price || !code) {
-      console.error("Los campos title, description, price y code son obligatorios.");
-      return;
+  async addProduct(data) {
+    const { title, description, price, thumbnail, code, stock, participants } = data;
+    if (!title || !description || !price || !thumbnail || !code || !stock || !participants) {
+      throw new Error('todos los campos son requeridos');
     }
 
-    const existingProduct = this.products.find(product => product.code === code);
-    if (existingProduct) {
-      console.error(`Ya existe un producto con el código ${code}.`);
-      return;
-    }
-
-    const newProduct = {
-      id: this.products.length + 1,
+ 
+    //leer el archivo 
+    const users = await getJsonFromFile(this.path);
+    const newUser = {
+      id: users.length +1,
       title,
       description,
-      price: price + (this.#priceBase * price),
+      price: price * (this.#priceBase * price),
       thumbnail,
       code,
       stock,
-      participants: [],
+      participants,
     };
-
-    this.products.push(newProduct);
-
-    console.log('Product added');
+    //inyectar el nuevo usurio
+    users.push(newUser);
+    //escribit los usurios en el archivo
+    await saveJsonInFile(this.path, users);
+    console.log('el usurio se registro');
   }
 
-  getProductById(productId) {
-    if (!productId) {
-      console.log('El dato productId es requerido.');
-      return;
-    }
-
-    const product = this.products.find((e) => e.id === productId);
-
-    if (!product) {
-      console.log("Producto no encontrado.");
-      return;
-    }
-
-    return product;
+  getProducts() {
+    return getJsonFromFile(this.path);
   }
 
-  addParticipant(productId, participantName) {
-    const product = this.getProductById(productId);
-
-    if (product) {
-      if (!product.participants.includes(participantName)) {
-        product.participants.push(participantName);
-        console.log(`Participante ${participantName} añadido al producto ${productId}`);
-      } else {
-        console.log(`El participante ${participantName} ya está registrado en el producto ${productId}`);
-      }
+   async update(id, data) {
+    const {title, description, price, thumbnail,code,stock,participants} = data;
+    const users = getJsonFromFile(this.path);
+    const position = users.findIndex((u) => u.id === id);
+    if (position === -1) {
+      throw new ('usurio no encontrado')
     }
+    if (title) {
+      users[position].title = title;
+    }
+    if (description) {
+      users[position].description = description;
+    }
+    if (price) {
+      users[position].price = price;
+    }
+    if (thumbnail) {
+      users[position].thumbnail = thumbnail;
+    }
+    if (code) {
+      users[position].code = code;
+    }
+    if (stock) {
+      users[position].stock = stock;
+    }
+    if (participants) {
+      users[position].participants = participants;
+    }
+
+
+    await saveJsonInFile(this.path,users);
+    console.log('usurio actulizado ');
   }
 
-  
+}
+
+const getJsonFromFile = async (path) => {
+  if (!fs.existsSync(path)) {
+    return [];
+  }
+  const content = await fs.promises.readFile(path, 'utf-8');
+  return JSON.parse(content);
+};
+
+const saveJsonInFile = (path, data) => {
+  const content = JSON.stringify(data, null, '\t');
+  return fs.promises.writeFile(path, content, 'utf-8');
+
 }
 
 
-const productManager = new ProductManager();
 
-productManager.addProduct('Producto de prueba 1', 'Descripción del producto 1', 200, 'sin imagen', 'abc123', 25);
-productManager.addProduct('Producto de prueba 2', 'Descripción del producto 2', 200, 'sin imagen', 'abc123', 25); 
+async function test() {
 
-console.log(productManager.getProducts());
+  const productManager = new ProductManager('./Users.json');
+ const data = {
+    title: 'carlos ',
+    description: 'producto de prueba',
+    price: '25',
+    thumbnail: '22',
+    code: 'javascript',
+    stock: '250',
+    participants: '2',
+  }
+  await productManager.addProduct(data);
+  console.log(await productManager.getProducts());
+  await productManager.update(1);
+}
 
-productManager.addParticipant(1, 'Juan');
-productManager.addParticipant(1, 'Pedro');
+
+test();
 
 
-console.log(productManager.getProducts());
-
-
-
-console.log(productManager.getProducts());
-
-const retrievedProduct = productManager.getProductById(1);
-console.log(retrievedProduct);
