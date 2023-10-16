@@ -71,6 +71,19 @@ class ProductManager {
     await saveJsonInFile(this.path,users);
     console.log('usurio actulizado ');
   }
+  async removeProductById(id){
+    let products = await getJsonFromFile(this.path);
+    let position = products.findIndex((u) => u.id === id);
+
+    if (position !== -1) {
+      products = products.splice(position,1);
+      console.log('producto eliminado')  
+      saveJsonInFile(this.path,products);
+      console.log(`producto eliminado por id${id}deleted`)
+    }else{
+      throw new Error('producto no encontrado');
+    }
+  }
 
 }
 

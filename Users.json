@@ -85,5 +85,15 @@
 		"code": "javascript",
 		"stock": "250",
 		"participants": "2"
+	},
+	{
+		"id": 10,
+		"title": "carlos ",
+		"description": "producto de prueba",
+		"price": 93.75,
+		"thumbnail": "22",
+		"code": "javascript",
+		"stock": "250",
+		"participants": "2"
 	}
 ]
